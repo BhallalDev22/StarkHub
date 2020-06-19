@@ -26,10 +26,21 @@ public class LoginSignupController implements Initializable {
             String path = new File("src/Graphics/LoginSignupBackground.mp4").getAbsolutePath();
             System.out.println(path);
             me = new Media(new File(path).toURI().toString());
-            mp = new MediaPlayer(me);
-            mediaView.setMediaPlayer(mp);
-            mp.setVolume(0);
-            mp.setAutoPlay(true);
+            new Thread(){
+                public void run(){
+                    while(true){
+                        mp = new MediaPlayer(me);
+                        mediaView.setMediaPlayer(mp);
+                        mp.setVolume(0);
+                        mp.setAutoPlay(true);
+                        try{
+                            Thread.sleep(8000);
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }.start();
         }catch (Exception e)
         {
             e.printStackTrace();
