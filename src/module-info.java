@@ -5,6 +5,7 @@ module StarkHub.Peer {
     requires javafx.graphics;
     requires javafx.base;
     requires com.jfoenix;
+    requires java.logging;
 
 
     opens StarkHub_MainPackage;
