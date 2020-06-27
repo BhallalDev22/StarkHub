@@ -1,0 +1,35 @@
+<component name="libraryTable">
+  <library name="javacv">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JarFiles/ffmpeg-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/ffmpeg.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/flycapture.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/javacpp-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/flandmark-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/libfreenect-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/flandmark.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/artoolkitplus.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/libdc1394.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/javacv.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/libdc1394-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/javacpp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/leptonica-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/libfreenect.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/flycapture-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/artoolkitplus-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/leptonica.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/javacv-platform.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/librealsense-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/libfreenect2-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/librealsense.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/librealsense2-linux-x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/librealsense2-platform.jar!/" />
+      <root url="jar://$PROJECT_DIR$/JarFiles/librealsense2.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>
