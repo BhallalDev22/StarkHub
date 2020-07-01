@@ -7,8 +7,11 @@ module StarkHub.Peer {
     requires com.jfoenix;
     requires java.logging;
     requires java.desktop;
-    requires marvin;
     requires org.bytedeco.javacv;
+    requires org.bytedeco.ffmpeg;
+    requires org.bytedeco.javacv.platform;
+    requires org.bytedeco.javacpp;
+    requires javafx.swing;
 
 
 

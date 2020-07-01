@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="marvin">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/JarFiles/marvin/framework/marvin.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
