@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("MainHub.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("LoginSignup.fxml"));
             stage.setTitle("StarkHub Login Window");
             Scene scene = new Scene(root);
             stage.setScene(scene);

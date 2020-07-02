@@ -40,7 +40,7 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </padding>
             </JFXTextField>
-            <JFXButton layoutX="96.0" layoutY="345.0" prefHeight="47.0" prefWidth="139.0" style="-fx-background-color: #0180ff; -fx-background-radius: 50px;" text="Signup">
+            <JFXButton layoutX="96.0" layoutY="345.0" prefHeight="47.0" prefWidth="139.0" style="-fx-background-color: #24c99b; -fx-background-radius: 50px;" text="Signup">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -81,7 +81,7 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </padding>
             </JFXTextField>
-            <JFXButton layoutX="96.0" layoutY="345.0" prefHeight="47.0" prefWidth="139.0" style="-fx-background-color: #0180ff; -fx-background-radius: 50px;" text="Login">
+            <JFXButton layoutX="96.0" layoutY="345.0" prefHeight="47.0" prefWidth="139.0" style="-fx-background-color: #24c99b; -fx-background-radius: 50px;" text="Login">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
