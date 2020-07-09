@@ -286,7 +286,7 @@ public class Server implements Initializable, EventHandler<javafx.event.ActionEv
                         SAMPLE_RATE=video.getSampleRate();
                         AUDIO_CHANNELS=video.getChannels();
                         timer.getKeyFrames().add(new KeyFrame(
-                                Duration.millis(FRAME_PERIOD)
+                                Duration.millis(FRAME_PERIOD/3)
                         ));
 
                         //Send response

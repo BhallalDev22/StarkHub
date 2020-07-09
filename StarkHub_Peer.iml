@@ -19,5 +19,6 @@
         <jarDirectory url="file://$MODULE_DIR$/JarFiles/javacv-platform-1.5.3-bin" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="gson-2.8.5" level="application" />
   </component>
 </module>

@@ -19,6 +19,11 @@
             </Label>
          </children>
       </Pane>
+      <JFXButton fx:id="trendingBtn" prefHeight="66.0" prefWidth="296.0" text="Trending" textFill="#da6832">
+         <font>
+            <Font name="Roboto Light" size="22.0" />
+         </font>
+      </JFXButton>
       <JFXButton fx:id="viewChannelBtn" prefHeight="66.0" prefWidth="296.0" text="View Channel" textFill="#bf5656">
          <font>
             <Font name="Roboto Light" size="22.0" />

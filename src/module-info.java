@@ -11,9 +11,8 @@ module StarkHub.Peer {
     requires org.bytedeco.ffmpeg;
     requires org.bytedeco.javacv.platform;
     requires org.bytedeco.javacpp;
-    requires javafx.swing;
-
-
+    requires gson;
+    requires java.sql;
 
     opens StarkHub_MainPackage;
 }

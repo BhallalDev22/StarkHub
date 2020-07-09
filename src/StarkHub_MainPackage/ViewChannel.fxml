@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.ViewChannelController">
+   <children>
+      <JFXListView fx:id="channelList" prefHeight="400.0" prefWidth="161.0" />
+      <JFXListView fx:id="videoList" layoutX="190.0" prefHeight="400.0" prefWidth="409.0" />
+   </children>
+</AnchorPane>

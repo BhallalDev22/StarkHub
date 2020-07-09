@@ -2,3 +2,11 @@
     -fx-text-fill : #000000;
     -fx-prompt-text-fill : #e0bfc0;
 }
+
+.jfx-snackbar-content {
+    -fx-background-color: RED;
+}
+.jfx-snackbar-toast {
+    -fx-text-fill: WHITE;
+    -fx-font-size: 20;
+}
