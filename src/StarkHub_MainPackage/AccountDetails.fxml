@@ -25,17 +25,17 @@
             <Font name="Roboto Light" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="314.0" layoutY="164.0" text="email" textFill="#bf5656">
+      <Label fx:id="emailTxt" layoutX="314.0" layoutY="164.0" text="email" textFill="#bf5656">
          <font>
             <Font name="Roboto Light" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="314.0" layoutY="261.0" text="date" textFill="#bf5656">
+      <Label fx:id="dateTxt" layoutX="314.0" layoutY="261.0" text="date" textFill="#bf5656">
          <font>
             <Font name="Roboto Light" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="314.0" layoutY="63.0" text="name" textFill="#bf5656">
+      <Label fx:id="unameTxt" layoutX="314.0" layoutY="63.0" text="name" textFill="#bf5656">
          <font>
             <Font name="Roboto Light" size="23.0" />
          </font>

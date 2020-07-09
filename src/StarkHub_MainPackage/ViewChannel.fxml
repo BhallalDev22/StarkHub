@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,10 +8,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.ViewChannelController">
+<AnchorPane prefHeight="462.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.ViewChannelController">
    <children>
-      <JFXListView fx:id="channelList" prefHeight="400.0" prefWidth="161.0" />
-      <JFXListView fx:id="videoList" layoutX="190.0" prefHeight="400.0" prefWidth="409.0" />
+      <JFXListView fx:id="channelList" prefHeight="407.0" prefWidth="203.0" />
+      <JFXListView fx:id="videoList" layoutX="226.0" prefHeight="456.0" prefWidth="453.0" />
+      <JFXButton fx:id="newChannelBtn" layoutY="405.0" prefHeight="57.0" prefWidth="203.0" style="-fx-border-color: #da6832;" text="+ Create New Channel" textFill="#da6832">
+         <font>
+            <Font name="Roboto Light" size="17.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

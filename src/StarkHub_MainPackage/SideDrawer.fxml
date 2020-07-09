@@ -29,11 +29,6 @@
             <Font name="Roboto Light" size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="craeteChannelBtn" prefHeight="66.0" prefWidth="296.0" text="Create Channel" textFill="#da6832">
-         <font>
-            <Font name="Roboto Light" size="22.0" />
-         </font>
-      </JFXButton>
       <JFXButton fx:id="watchLaterBtn" prefHeight="66.0" prefWidth="296.0" text="Watch Later" textFill="#bf5656">
          <font>
             <Font name="Roboto Light" size="22.0" />
@@ -44,7 +39,7 @@
             <Font name="Roboto Light" size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="accountBtn" prefHeight="66.0" prefWidth="296.0" text="Manage your Account" textFill="#bf5656">
+      <JFXButton fx:id="accountBtn" prefHeight="66.0" prefWidth="296.0" text="View Account" textFill="#bf5656">
          <font>
             <Font name="Roboto Light" size="22.0" />
          </font>
