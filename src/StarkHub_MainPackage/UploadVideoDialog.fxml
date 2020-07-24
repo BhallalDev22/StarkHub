@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.UploadVideoDialogController">
+   <children>
+      <JFXTextField fx:id="videoNameTxt" layoutX="65.0" layoutY="62.0" prefHeight="46.0" prefWidth="223.0" promptText="Video Name..." style="-fx-border-radius: 15;" styleClass="materialTxt" stylesheets="@../resources/css/material.css">
+         <font>
+            <Font name="Roboto Regular" size="18.0" />
+         </font>
+      </JFXTextField>
+      <Pane layoutX="333.0" prefHeight="400.0" prefWidth="267.0" style="-fx-background-color: #fc9494;">
+         <children>
+            <JFXButton fx:id="submitBtn" layoutX="88.0" layoutY="122.0" onAction="#onSubmit" prefHeight="45.0" prefWidth="92.0" style="-fx-border-color: #070ed3; -fx-border-radius: 10;" text="Submit" textFill="#070ed3">
+               <font>
+                  <Font name="Roboto Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="cancelBtn" layoutX="88.0" layoutY="200.0" onAction="#onCancel" prefHeight="45.0" prefWidth="92.0" style="-fx-border-color: #d10808; -fx-border-radius: 10;" text="Cancel" textFill="#d10808">
+               <font>
+                  <Font name="Roboto Bold" size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <JFXTextField fx:id="tagsTxt" layoutX="65.0" layoutY="177.0" prefHeight="46.0" prefWidth="223.0" promptText="Tags..." style="-fx-border-radius: 15;" styleClass="materialTxt" stylesheets="@../resources/css/material.css">
+         <font>
+            <Font name="Roboto Regular" size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton layoutX="108.0" layoutY="302.0" onAction="#onVideoSelect" prefHeight="45.0" prefWidth="138.0" style="-fx-border-color: #070ed3; -fx-border-radius: 10;" text="Select video..." textFill="#070ed3">
+         <font>
+            <Font name="Roboto Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="videoPath" layoutX="90.0" layoutY="266.0" text="No file selected">
+         <font>
+            <Font name="Roboto Light" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

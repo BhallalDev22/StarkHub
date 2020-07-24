@@ -5,6 +5,8 @@ package StarkHub_MainPackage;/* ------------------
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbarLayout;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -14,11 +16,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.event.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.bytedeco.javacv.FrameGrabber;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -33,26 +38,26 @@ import java.awt.event.*;
 
 
 public class ClientVideo implements Initializable {
+    public AnchorPane rootPane;
     //GUI
     //----
     @FXML
     ImageView video;
-    @FXML
-    Slider seekbar;
     @FXML
     JFXButton playBtn;
     @FXML
     JFXButton pauseBtn;
     @FXML
     JFXButton stopBtn;
-    @FXML
-    ProgressBar bufferProgress;
+
+    private JFXSnackbar snackbar;
+
 
     //RTP variables:
     //----------------
     DatagramPacket rcvdp;            //UDP packet received from the server
     DatagramSocket RTPsocket;        //socket to be used to send and receive UDP packets
-    static int RTP_RCV_PORT = 25000; //port where the client will receive the RTP packets
+    int RTP_RCV_PORT = 25000; //port where the client will receive the RTP packets
 
     Timeline timer; //timer used to receive data from the UDP socket
     byte[] buf;  //buffer used to store data received from the server
@@ -63,14 +68,14 @@ public class ClientVideo implements Initializable {
     final static int INIT = 0;
     final static int READY = 1;
     final static int PLAYING = 2;
-    static int state;            //RTSP state == INIT or READY or PLAYING
+    int state;            //RTSP state == INIT or READY or PLAYING
     Socket RTSPsocket;           //socket used to send/receive RTSP messages
-    InetAddress ServerIPAddr;
+    private InetAddress ServerIPAddr;
 
     //input and output stream filters
-    static BufferedReader RTSPBufferedReader;
-    static BufferedWriter RTSPBufferedWriter;
-    static String VideoFileName; //video file to request to the server
+    BufferedReader RTSPBufferedReader;
+    BufferedWriter RTSPBufferedWriter;
+    private String VideoFileName; //video file to request to the server
     int RTSPSeqNb = 0;           //Sequence number of RTSP messages within the session
     String RTSPid;              // ID of the RTSP session (given by the RTSP Server)
 
@@ -80,7 +85,7 @@ public class ClientVideo implements Initializable {
     //RTCP variables
     //----------------
     DatagramSocket RTCPsocket;          //UDP socket for sending RTCP packets
-    static int RTCP_RCV_PORT = 19001;   //port where the client will receive the RTP packets
+    int RTCP_RCV_PORT = 19001;   //port where the client will receive the RTP packets
     static int RTCP_PERIOD = 400;       //How often to send RTCP packets
     RtcpSender rtcpSender;
 
@@ -97,16 +102,18 @@ public class ClientVideo implements Initializable {
     int statHighSeqNb;          //Highest sequence number received in session
 
     FrameSynchronizer fsynch;
-    ArrayList<Image> videoBuffer;
-    static int bufferSize=200;
-    int bufStart,bufEnd;
-    boolean playingFromBuffer;
+//    ArrayList<Image> videoBuffer;
+//    static int bufferSize=200;
+//    int bufStart,bufEnd;
+//    boolean playingFromBuffer;
     int VIDEO_LENGTH;
     private int FRAME_PERIOD;
     Timeline tempTimer;
     private int SAMPLE_RATE;
     private SourceDataLine soundLine;
     private int AUDIO_CHANNELS;
+    private boolean played;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -129,13 +136,7 @@ public class ClientVideo implements Initializable {
             );
             timer.setCycleCount(Timeline.INDEFINITE);
 
-            seekbar.setDisable(true);
-            seekbar.valueProperty().addListener(new sliderListener());
-                            seekbar.setMin(0);
-//                seekbar.setMax(VIDEO_LENGTH);
-                seekbar.setValue(0);
-                seekbar.setBlockIncrement(1);
-//                seekbar.setDisable(false);
+            snackbar = new JFXSnackbar(rootPane);
 
 //            video.setImage(new Image(getClass().getResourceAsStream("src/Graphics/buffering.jpg")));
             //allocate enough memory for the buffer used to receive data from the server
@@ -147,32 +148,44 @@ public class ClientVideo implements Initializable {
             //create the frame synchronizer
             fsynch = new FrameSynchronizer(100);
 
-            bufStart=0;bufEnd=-1;
-            videoBuffer=new ArrayList<>();
-            playingFromBuffer=false;
+            played=false;
 
-            //Create a ClientVideo object
-            ClientVideo theClient = new ClientVideo();
 
-            //get server RTSP port and IP address from the command line
-            //------------------
-            int RTSP_server_port = 1051;
-            String ServerHost = "localhost";
-            theClient.ServerIPAddr = InetAddress.getByName(ServerHost);
+        }catch(Exception ex){ex.printStackTrace();}
+    }
 
-            //get video filename to request:
-            VideoFileName = "src/Graphics/TEST2.mkv";
+    public void initVideo(){
 
+        int RTSP_server_port = 1051;
+        try {
             //Establish a TCP connection with the server to exchange RTSP messages
             //------------------
-            theClient.RTSPsocket = new Socket(theClient.ServerIPAddr, RTSP_server_port);
+            RTSPsocket = new Socket(ServerIPAddr, RTSP_server_port);
 
             //Establish a UDP connection with the server to exchange RTCP control packets
             //------------------
 
             //Set input and output stream filters:
-            RTSPBufferedReader = new BufferedReader(new InputStreamReader(theClient.RTSPsocket.getInputStream()));
-            RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(theClient.RTSPsocket.getOutputStream()));
+            RTSPBufferedReader = new BufferedReader(new InputStreamReader(RTSPsocket.getInputStream()));
+            RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(RTSPsocket.getOutputStream()));
+
+            DatagramSocket test = null;
+
+            while (true) {
+                try {
+                    test = new DatagramSocket(RTP_RCV_PORT);
+                    test.setReuseAddress(true);
+                    break;
+                } catch (SocketException e) {
+                } finally {
+                    if (test != null) {
+                        test.close();
+                    } else
+                        RTP_RCV_PORT++;
+                }
+            }
+
+            System.out.println("RTP port = " + RTP_RCV_PORT);
 
 
             //Init non-blocking RTPsocket that will be used to receive data
@@ -183,10 +196,8 @@ public class ClientVideo implements Initializable {
                 RTCPsocket = new DatagramSocket();
                 //set TimeOut value of the socket to 5msec.
                 RTPsocket.setSoTimeout(5);
-            }
-            catch (SocketException se)
-            {
-                System.out.println("Socket exception: "+se);
+            } catch (SocketException se) {
+                System.out.println("Socket exception: " + se);
                 System.exit(0);
             }
 
@@ -199,24 +210,29 @@ public class ClientVideo implements Initializable {
             //Wait for the response
             if (parseServerResponse() != 200)
                 System.out.println("Invalid Server Response");
-            else
-            {
+            else {
                 //change RTSP state and print new state
                 state = READY;
                 System.out.println("New RTSP state: READY");
                 final AudioFormat audioFormat = new AudioFormat(SAMPLE_RATE, 16, AUDIO_CHANNELS, true, true);
 
                 final DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-                soundLine=(SourceDataLine) AudioSystem.getLine(info);
+                soundLine = (SourceDataLine) AudioSystem.getLine(info);
                 soundLine.open(audioFormat);
                 soundLine.start();
-//                seekbar.setMin(0);
-                seekbar.setMax(VIDEO_LENGTH);
-//                seekbar.setValue(0);
-//                seekbar.setBlockIncrement(1);
-                seekbar.setDisable(false);
+//
             }
-        }catch(Exception ex){ex.printStackTrace();}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setServerIPAddr(InetAddress serverIPAddr) {
+        ServerIPAddr = serverIPAddr;
+    }
+
+    public void setVideoFileName(String videoFileName) {
+        VideoFileName = videoFileName;
     }
 
 
@@ -234,22 +250,21 @@ public class ClientVideo implements Initializable {
         public void handle(ActionEvent e) {
 
             System.out.println("Play Button pressed!");
-
+            if(!played){
+                played=true;
+                initVideo();
+            }
             //Start to save the time in stats
             statStartTime = System.currentTimeMillis();
 
             if (state == READY) {
-                if(playingFromBuffer) {
-                    tempTimer.play();
-                    state = PLAYING;
-                }
-                else {
+
                     System.out.println("Playing from stream");
                     //increase RTSP sequence number
                     RTSPSeqNb++;
 
                     //Send PLAY message to the server
-                    sendRequest("PLAY", bufEnd);
+                    sendRequest("PLAY");
 
                     //Wait for the response
                     if (parseServerResponse() != 200) {
@@ -262,7 +277,7 @@ public class ClientVideo implements Initializable {
                         //start the timer
                         timer.play();
                         rtcpSender.startSend();
-                    }
+
                 }
             }
             //else if state != READY then do nothing
@@ -280,11 +295,7 @@ public class ClientVideo implements Initializable {
 
             if (state == PLAYING)
             {
-                if(playingFromBuffer){
-                    tempTimer.stop();
-                    state=READY;
-                }
-                else {
+
                     //increase RTSP sequence number
                     RTSPSeqNb++;
 
@@ -300,10 +311,10 @@ public class ClientVideo implements Initializable {
                         System.out.println("New RTSP state: READY");
 
                         //stop the timer
-                        timer.stop();
+                        timer.pause();
                         rtcpSender.stopSend();
                     }
-                }
+
             }
             //else if state != PLAYING then do nothing
         }
@@ -332,112 +343,110 @@ public class ClientVideo implements Initializable {
                 state = INIT;
                 System.out.println("New RTSP state: INIT");
 
-                if(!playingFromBuffer) {
-                    //stop the timer
-                    timer.stop();
-                    rtcpSender.stopSend();
-                }
-
-                //exit
-                System.exit(0);
-            }
-        }
-    }
-
-    //Handler for slider
-
-    class sliderListener implements ChangeListener<Number>{
-
-
-        @Override
-        public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-            if (state == PLAYING)
-            {
-                //increase RTSP sequence number
-                RTSPSeqNb++;
-
-                //Send PAUSE message to the server
-                sendRequest("PAUSE");
-
-                //Wait for the response
-                if (parseServerResponse() != 200)
-                    System.out.println("Invalid Server Response");
-                else
-                {
-                    //change RTSP state and print out new state
-                    state = READY;
-                    System.out.println("New RTSP state: READY");
 
                     //stop the timer
                     timer.stop();
                     rtcpSender.stopSend();
-                }
-            }
-            int newval=t1.intValue();
-            if(newval>=bufStart&&newval<bufEnd){
-                playingFromBuffer=true;
-                tempTimer=new Timeline();
-                for(int i=(int)seekbar.getValue();i<bufEnd;i++){
-                    final int val=i;
-                    tempTimer.getKeyFrames().add(new KeyFrame(
-                            Duration.millis(FRAME_PERIOD),
-                            actionEvent -> {video.setImage(videoBuffer.get(val));}
-                    ));
-                }
-                tempTimer.play();
-                state=PLAYING;
-                tempTimer.setOnFinished(
-                        actionEvent -> {
-                            playingFromBuffer=false;
+                    soundLine.close();
 
-                                //increase RTSP sequence number
-                                RTSPSeqNb++;
-
-                                //Send PLAY message to the server
-                                sendRequest("PLAY",bufEnd);
-
-                                //Wait for the response
-                                if (parseServerResponse() != 200) {
-                                    System.out.println("Invalid Server Response");
-                                }
-                                else {
-                                    //change RTSP state and print out new state
-                                    state = PLAYING;
-                                    System.out.println("New RTSP state: PLAYING");
-
-                                    //start the timer
-                                    timer.play();
-                                    rtcpSender.startSend();
-                                }
-
-                        }
-                );
-            }
-            else{
-                if (state == READY) {
-                    //increase RTSP sequence number
-                    RTSPSeqNb++;
-
-                    //Send PLAY message to the server
-                    sendRequest("PLAY",newval);
-
-                    //Wait for the response
-                    if (parseServerResponse() != 200) {
-                        System.out.println("Invalid Server Response");
-                    }
-                    else {
-                        //change RTSP state and print out new state
-                        state = PLAYING;
-                        System.out.println("New RTSP state: PLAYING");
-
-                        //start the timer
-                        timer.play();
-                        rtcpSender.startSend();
-                    }
-                }
             }
         }
     }
+
+//    //Handler for slider
+//
+//    class sliderListener implements ChangeListener<Number>{
+//
+//
+//        @Override
+//        public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+//            if (state == PLAYING)
+//            {
+//                //increase RTSP sequence number
+//                RTSPSeqNb++;
+//
+//                //Send PAUSE message to the server
+//                sendRequest("PAUSE");
+//
+//                //Wait for the response
+//                if (parseServerResponse() != 200)
+//                    System.out.println("Invalid Server Response");
+//                else
+//                {
+//                    //change RTSP state and print out new state
+//                    state = READY;
+//                    System.out.println("New RTSP state: READY");
+//
+//                    //stop the timer
+//                    timer.stop();
+//                    rtcpSender.stopSend();
+//                }
+//            }
+//            int newval=t1.intValue();
+//            if(newval>=bufStart&&newval<bufEnd){
+//                playingFromBuffer=true;
+//                tempTimer=new Timeline();
+//                for(int i=(int)seekbar.getValue();i<bufEnd;i++){
+//                    final int val=i;
+//                    tempTimer.getKeyFrames().add(new KeyFrame(
+//                            Duration.millis(FRAME_PERIOD),
+//                            actionEvent -> {video.setImage(videoBuffer.get(val));}
+//                    ));
+//                }
+//                tempTimer.play();
+//                state=PLAYING;
+//                tempTimer.setOnFinished(
+//                        actionEvent -> {
+//                            playingFromBuffer=false;
+//
+//                                //increase RTSP sequence number
+//                                RTSPSeqNb++;
+//
+//                                //Send PLAY message to the server
+//                                sendRequest("PLAY",bufEnd);
+//
+//                                //Wait for the response
+//                                if (parseServerResponse() != 200) {
+//                                    System.out.println("Invalid Server Response");
+//                                }
+//                                else {
+//                                    //change RTSP state and print out new state
+//                                    state = PLAYING;
+//                                    System.out.println("New RTSP state: PLAYING");
+//
+//                                    //start the timer
+//                                    timer.play();
+//                                    rtcpSender.startSend();
+//                                }
+//
+//                        }
+//                );
+//            }
+//            else{
+//                if (state == READY) {
+//                    //increase RTSP sequence number
+//                    RTSPSeqNb++;
+//
+//                    //Send PLAY message to the server
+//                    sendRequest("PLAY",newval);
+//
+//                    //Wait for the response
+//                    if (parseServerResponse() != 200) {
+//                        System.out.println("Invalid Server Response");
+//                    }
+//                    else {
+//                        //change RTSP state and print out new state
+//                        state = PLAYING;
+//                        System.out.println("New RTSP state: PLAYING");
+//
+//                        //start the timer
+//                        timer.play();
+//                        rtcpSender.startSend();
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
 
@@ -445,6 +454,7 @@ public class ClientVideo implements Initializable {
     //Handler for timer
     //------------------------------------
     class timerListener implements EventHandler<ActionEvent>  {
+        private int nullCount=0;
 
         @Override
         public void handle(ActionEvent e){
@@ -455,7 +465,7 @@ public class ClientVideo implements Initializable {
             try {
                 //receive the DP from the socket, save time for stats
                 RTPsocket.receive(rcvdp);
-
+                nullCount=0;
                 double curTime = System.currentTimeMillis();
                 statTotalPlayTime += curTime - statStartTime;
                 statStartTime = curTime;
@@ -514,10 +524,17 @@ public class ClientVideo implements Initializable {
 //                System.out.println(seekbar.getValue()+"/"+seekbar.getMax()+" "+VIDEO_LENGTH);
             }
             catch (InterruptedIOException iioe) {
+                nullCount++;
                 System.out.println("Nothing to read");
+                if(nullCount==10) {
+                    snackbar.enqueue(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Video ended or was interrupted")));
+                stopBtn.fire();
+                }
             }
             catch (IOException ioe) {
                 System.out.println("Exception caught: "+ioe);
+                snackbar.enqueue(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Creator is unavailable at this moment")));
+                stopBtn.fire();
             }
         }
     }
@@ -529,7 +546,7 @@ public class ClientVideo implements Initializable {
 
         private Timer rtcpTimer;
         int interval;
-
+        private int nullCount=0;
         // Stats variables
         private int numPktsExpected;    // Number of RTP packets expected since the last RTCP packet
         private int numPktsLost;        // Number of RTP packets lost since the last RTCP packet
@@ -541,7 +558,7 @@ public class ClientVideo implements Initializable {
 
         public RtcpSender(int interval) {
             this.interval = interval;
-            rtcpTimer = new Timer(true);
+
 
             randomGenerator = new Random();
         }
@@ -569,16 +586,27 @@ public class ClientVideo implements Initializable {
             try {
                 DatagramPacket dp = new DatagramPacket(packet_bits, packet_length, ServerIPAddr, RTCP_RCV_PORT);
                 RTCPsocket.send(dp);
+                nullCount=0;
             } catch (InterruptedIOException iioe) {
+                nullCount++;
                 System.out.println("Nothing to read");
-            } catch (IOException ioe) {
+                if(nullCount==10) {
+                    snackbar.enqueue(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Video ended or was interrupted")));
+                stopBtn.fire();
+                }
+            }
+            catch (IOException ioe) {
                 System.out.println("Exception caught: "+ioe);
+                snackbar.enqueue(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Creator is unavailable at this moment")));
+                stopBtn.fire();
             }
         }
 
         // Start sending RTCP packets
         public void startSend() {
-            rtcpTimer.schedule(this,0,interval);
+            rtcpTimer = new Timer(true);
+
+            rtcpTimer.schedule(new RtcpSender(interval),0,interval);
         }
 
         // Stop sending RTCP packets
@@ -689,11 +717,15 @@ public class ClientVideo implements Initializable {
                 tokens = new StringTokenizer(AudioChannelLine);
                 tokens.nextToken();
                 AUDIO_CHANNELS=Integer.parseInt(tokens.nextToken());
-
+                String PortLine=RTSPBufferedReader.readLine();
+                System.out.println(PortLine);
+                tokens = new StringTokenizer(PortLine);
+                tokens.nextToken();
+                RTCP_RCV_PORT=Integer.parseInt(tokens.nextToken());
             }
         } catch(Exception ex) {
             System.out.println("Exception caught: "+ex);
-            System.exit(0);
+//            System.exit(0);
         }
 
         return(reply_code);
@@ -732,7 +764,7 @@ public class ClientVideo implements Initializable {
             RTSPBufferedWriter.flush();
         } catch(Exception ex) {
             System.out.println("Exception caught: "+ex);
-            System.exit(0);
+//            System.exit(0);
         }
     }
     private void sendRequest(String request_type,int frameNo) {
@@ -756,7 +788,7 @@ public class ClientVideo implements Initializable {
             RTSPBufferedWriter.flush();
         } catch (Exception ex) {
             System.out.println("Exception caught: " + ex);
-            System.exit(0);
+//            System.exit(0);
         }
     }
 }

@@ -22,6 +22,8 @@ import javafx.stage.StageStyle;
 import org.bytedeco.javacv.FrameGrabber;
 
 import java.io.*;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,6 +46,7 @@ public class LoginSignupController implements Initializable {
     private Socket sock;
     private  Stage progress=null;
     private String notifications=null,trending,username=null;
+    private Thread videoThread;
 
     final static String sf = "Successful";
     final static String usf = "Unsuccessful";
@@ -56,21 +59,21 @@ public class LoginSignupController implements Initializable {
 
             System.out.println(path);
             me = new Media(new File(path).toURI().toString());
-            new Thread(){
-                public void run(){
-                    while(true){
-                        mp = new MediaPlayer(me);
-                        mediaView.setMediaPlayer(mp);
-                        mp.setVolume(0);
-                        mp.setAutoPlay(true);
-                        try{
-                            Thread.sleep(8000);
-                        }catch (InterruptedException e){
-                            e.printStackTrace();
-                        }
+            videoThread= new Thread(() -> {
+                while(true){
+                    mp = new MediaPlayer(me);
+                    mediaView.setMediaPlayer(mp);
+                    mp.setVolume(0);
+                    mp.setAutoPlay(true);
+                    try{
+                        Thread.sleep(8000);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
                     }
                 }
-            }.start();
+            });
+            videoThread.setDaemon(true);
+            videoThread.start();
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -97,9 +100,11 @@ public class LoginSignupController implements Initializable {
             Task<String> task=new Task<>() {
                 @Override
                 protected String call() throws Exception {
-                    URL url=new URL("http://bot.whatismyipaddress.com");
-                    BufferedReader sc=new BufferedReader(new InputStreamReader(url.openStream()));
-                    String ip=sc.readLine().trim();
+                    String ip;
+                    try(final DatagramSocket socket = new DatagramSocket()){
+                        socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+                        ip = socket.getLocalAddress().getHostAddress();
+                    }
                     System.out.println(ip);
                     pfc.setHeader(2);
                     pfc.setIPAddress(ip);
@@ -146,10 +151,6 @@ public class LoginSignupController implements Initializable {
             Task<String> task=new Task<>() {
                 @Override
                 protected String call() throws Exception {
-                    URL url=new URL("http://bot.whatismyipaddress.com");
-                    BufferedReader sc=new BufferedReader(new InputStreamReader(url.openStream()));
-                    String ip=sc.readLine().trim();
-                    System.out.println(ip);
                     pfc.setHeader(1);
                     pfc.setEmailID(signUpEmail.getText());
                     pfc.setUserName(signUpUserName.getText());
@@ -196,6 +197,7 @@ public class LoginSignupController implements Initializable {
         stage.setScene(new Scene(root1));
         stage.show();
         ((Stage)anchorPane.getScene().getWindow()).close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

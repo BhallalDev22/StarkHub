@@ -16,6 +16,7 @@ public class Main extends Application {
 
     final static String IP_ADDRESS="localhost";
     final static int PORT=5000;
+    public static String cssPath;
 
     private Socket sock;
 
@@ -38,7 +39,8 @@ public class Main extends Application {
             stage.setTitle("StarkHub Login Window");
             Scene scene = new Scene(root);
             String path = new File("src/resources/css/material.css").getAbsolutePath();
-            scene.getStylesheets().add("file://"+path);
+            cssPath="file://"+path;
+            scene.getStylesheets().add(cssPath);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

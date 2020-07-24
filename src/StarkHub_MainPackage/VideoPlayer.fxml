@@ -8,13 +8,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: #44bb00;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.ClientVideo">
+<AnchorPane fx:id="rootPane" prefHeight="496.0" prefWidth="730.0" style="-fx-border-color: #44bb00;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.ClientVideo">
    <children>
-      <ImageView fx:id="video" fitHeight="329.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-      <JFXButton fx:id="playBtn" contentDisplay="GRAPHIC_ONLY" layoutX="278.0" layoutY="351.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-radius: 5em; -fx-background-color: #ff6600;" />
-      <JFXButton fx:id="pauseBtn" contentDisplay="GRAPHIC_ONLY" layoutX="356.0" layoutY="351.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-radius: 5em; -fx-background-color: #ff6600;" />
-      <JFXButton fx:id="stopBtn" contentDisplay="GRAPHIC_ONLY" layoutX="199.0" layoutY="351.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-radius: 5em; -fx-background-color: #ff6600;" />
-      <ProgressBar fx:id="bufferProgress" layoutX="433.0" layoutY="362.0" prefHeight="20.0" prefWidth="132.0" progress="0.0" />
-      <Slider fx:id="seekbar" layoutX="-1.0" layoutY="321.0" prefHeight="16.0" prefWidth="600.0" />
+      <ImageView fx:id="video" fitHeight="429.0" fitWidth="730.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton fx:id="playBtn" contentDisplay="GRAPHIC_ONLY" layoutX="341.0" layoutY="431.0" prefHeight="59.0" prefWidth="64.0" style="-fx-background-radius: 5em; -fx-background-color: #ff6600;" text="Button">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphics/play.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+      <JFXButton fx:id="pauseBtn" contentDisplay="GRAPHIC_ONLY" layoutX="499.0" layoutY="431.0" prefHeight="59.0" prefWidth="64.0" style="-fx-background-radius: 5em; -fx-background-color: #ff6600;" text="Button">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphics/pause.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+      <JFXButton fx:id="stopBtn" contentDisplay="GRAPHIC_ONLY" layoutX="176.0" layoutY="431.0" prefHeight="59.0" prefWidth="64.0" style="-fx-background-radius: 5em; -fx-background-color: #ff6600;" text="Button">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Graphics/stop.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+      <Separator layoutX="7.0" layoutY="425.0" prefHeight="6.0" prefWidth="730.0" />
    </children>
 </AnchorPane>
