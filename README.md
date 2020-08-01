@@ -19,6 +19,7 @@ Your personal video streaming platform using LAN socket connections and RTSP str
 * Videos are shared through __RTSP__(Real Time Streaming Protocol) and __RTP__(Real-time Transport Protocol). The server node(serving the video)
   and the client node establish an RTSP socket to communicate control signals, while audio and video frames are sent through RTP (which is implemented using 
   UDP socket). Basic workflow: <img src="https://github.com/mutaphore/RTSP-Client-Server/blob/master/images/rtsp1.png" alt="drawing" width="600" height="400"/>
+  
   (Congestion Control is not used in our project due to its limited use in local environments)
   
 * Audio and video frames are extracted using FFMPEGFrameGrabber class of JavaCV (Java wrapper of OpenCV). Repo at: https://github.com/bytedeco/javacv  
