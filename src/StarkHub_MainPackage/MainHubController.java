@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -20,7 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -66,7 +64,7 @@ public class MainHubController implements Initializable{
     public static PrintWriter output;
     private Stage progress;
     private JFXButton trendingBtn,viewChannelBtn,watchLaterBtn, watchHistoryBtn, accountBtn,subChannelBtn,commentHistoryBtn;
-    public static int currentScreen=0;
+    public static int currentScreen=-1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -83,7 +81,7 @@ public class MainHubController implements Initializable{
                         currentScreen=-1;
                         headingTxt.setText("Search results...");
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("SearchResults.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/SearchResults.fxml")));
                             Parent rt = loader.load();
 
                             SearchResultsController src=loader.getController();
@@ -99,7 +97,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -121,7 +119,7 @@ public class MainHubController implements Initializable{
                     }
                 }
             });
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SideDrawer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/SideDrawer.fxml"));
             VBox box = loader.load();
             SideDrawerController sdc=loader.getController();
 
@@ -155,7 +153,7 @@ public class MainHubController implements Initializable{
                                 trendingList.add(ptcf);
                             }
 
-                            FXMLLoader loader1=new FXMLLoader((getClass().getResource("TrendingList.fxml")));
+                            FXMLLoader loader1=new FXMLLoader((getClass().getResource("ui/TrendingList.fxml")));
                             Parent rt=loader1.load();
                             TrendingListController tlc=loader1.getController();
                             tlc.setTrendingList(trendingList);
@@ -178,7 +176,7 @@ public class MainHubController implements Initializable{
                         headingTxt.setText("Channels...");
 
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ViewChannel.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/ViewChannel.fxml")));
                             Parent rt = loader.load();
 
                             ViewChannelController vcc=loader.getController();
@@ -195,7 +193,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -236,7 +234,7 @@ public class MainHubController implements Initializable{
                         headingTxt.setText("Watch History...");
 
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("WatchHistory.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/WatchHistory.fxml")));
                             Parent rt = loader.load();
 
                             WatchHistoryController whc=loader.getController();
@@ -252,7 +250,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -295,7 +293,7 @@ public class MainHubController implements Initializable{
                         headingTxt.setText("Watch Later...");
 
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("WatchLater.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/WatchLater.fxml")));
                             Parent rt = loader.load();
 
                             WatchLaterController wlc=loader.getController();
@@ -311,7 +309,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -354,7 +352,7 @@ public class MainHubController implements Initializable{
                         headingTxt.setText("Account Summary...");
 
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("AccountDetails.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/AccountDetails.fxml")));
                             Parent rt = loader.load();
 
                             AccountDetailsController adc=loader.getController();
@@ -370,7 +368,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -404,7 +402,7 @@ public class MainHubController implements Initializable{
                         headingTxt.setText("Subscribed Channels...");
 
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ViewChannel.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/ViewChannel.fxml")));
                             Parent rt = loader.load();
 
                             ViewChannelController vcc=loader.getController();
@@ -421,7 +419,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -463,7 +461,7 @@ public class MainHubController implements Initializable{
                         headingTxt.setText("Comment History...");
 
                         try {
-                            FXMLLoader loader=new FXMLLoader((getClass().getResource("CommentHistory.fxml")));
+                            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/CommentHistory.fxml")));
                             Parent rt = loader.load();
 
                             CommentHistoryController chc=loader.getController();
@@ -479,7 +477,7 @@ public class MainHubController implements Initializable{
                                     return input.readLine();
                                 }
                             };
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             progress = new Stage(StageStyle.UNDECORATED);
                             progress.initModality(Modality.WINDOW_MODAL);
@@ -543,6 +541,7 @@ public class MainHubController implements Initializable{
 
     public void setTrending(String trending){
         this.trending=trending;
+        trendingBtn.fire();
         System.out.println(trending);
     }
 
@@ -578,7 +577,7 @@ public class MainHubController implements Initializable{
                 return input.readLine();
             }
         };
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         progress = new Stage(StageStyle.UNDECORATED);
         progress.initModality(Modality.WINDOW_MODAL);
@@ -612,7 +611,7 @@ public class MainHubController implements Initializable{
             }
         };
 
-        FXMLLoader loader1=new FXMLLoader(MainHubController.class.getResource("PlayerHub.fxml"));
+        FXMLLoader loader1=new FXMLLoader(MainHubController.class.getResource("ui/PlayerHub.fxml"));
         try {
 
 

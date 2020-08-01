@@ -19,7 +19,6 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.bytedeco.javacv.FrameGrabber;
 
 import java.io.*;
 import java.net.DatagramSocket;
@@ -115,7 +114,7 @@ public class LoginSignupController implements Initializable {
                     return input.readLine();
                 }
             };
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             progress = new Stage(StageStyle.UNDECORATED);
             progress.initModality(Modality.WINDOW_MODAL);
@@ -159,7 +158,7 @@ public class LoginSignupController implements Initializable {
                     return input.readLine();
                 }
             };
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             progress = new Stage(StageStyle.UNDECORATED);
             progress.initModality(Modality.WINDOW_MODAL);
@@ -184,7 +183,7 @@ public class LoginSignupController implements Initializable {
     }
     public void openMainHub(){
         try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainHub.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/MainHub.fxml"));
         Parent root1 = null;
 
             root1 = (Parent) fxmlLoader.load();
@@ -194,7 +193,9 @@ public class LoginSignupController implements Initializable {
         mhc.setUserName(username);
         mhc.setSock(sock);
         Stage stage = new Stage(StageStyle.UNDECORATED);
-        stage.setScene(new Scene(root1));
+        Scene scene=new Scene(root1);
+        scene.getStylesheets().add(Main.cssPath);
+        stage.setScene(scene);
         stage.show();
         ((Stage)anchorPane.getScene().getWindow()).close();
 

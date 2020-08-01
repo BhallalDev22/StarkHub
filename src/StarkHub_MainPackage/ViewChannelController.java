@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXSnackbar;
-import com.jfoenix.controls.JFXSnackbarLayout;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,9 +24,7 @@ import javafx.stage.StageStyle;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -138,7 +134,7 @@ public class ViewChannelController implements Initializable {
     }
 
     public void onCreateNewChannel() throws IOException {
-        Parent root1= FXMLLoader.load(getClass().getResource("NewChannelDialog.fxml"));
+        Parent root1= FXMLLoader.load(getClass().getResource("ui/NewChannelDialog.fxml"));
         Stage stage = new Stage(StageStyle.UNDECORATED);
         stage.setScene(new Scene(root1));
         stage.show();
@@ -155,7 +151,7 @@ public class ViewChannelController implements Initializable {
     }
 
     public void onUploadVideo() throws IOException{
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("UploadVideoDialog.fxml"));
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("ui/UploadVideoDialog.fxml"));
         Parent root1=loader.load();
         UploadVideoDialogController uvdc=loader.getController();
         uvdc.setChannelName(channelList.getSelectionModel().getSelectedItem().getChannelName());

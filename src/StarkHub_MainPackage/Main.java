@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Main extends Application {
@@ -31,7 +30,7 @@ public class Main extends Application {
                     new InputStreamReader(sock.getInputStream()));
 
             String trending=input.readLine();
-            FXMLLoader loader=new FXMLLoader((getClass().getResource("LoginSignup.fxml")));
+            FXMLLoader loader=new FXMLLoader((getClass().getResource("ui/LoginSignup.fxml")));
             Parent root = loader.load();
             LoginSignupController lsController=loader.getController();
             lsController.setSocket(sock);

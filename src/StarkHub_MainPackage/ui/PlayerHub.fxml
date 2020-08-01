@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="rootPane" prefHeight="496.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.PlayerHubController">
+   <children>
+      <AnchorPane fx:id="videoPlayer" prefHeight="496.0" prefWidth="730.0" />
+      <ScrollPane layoutX="730.0" prefHeight="496.0" prefWidth="245.0">
+         <content>
+             <Pane prefHeight="496.0" prefWidth="245.0" style="-fx-background-color: #eeeeee;">
+               <children>
+                  <Label fx:id="nameTxt" layoutX="16.0" layoutY="20.0" text="Name">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="channelNameTxt" layoutX="16.0" layoutY="57.0" text="Channel Name">
+                     <font>
+                        <Font name="Roboto Condensed Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="likeBtn" layoutY="100.0" onAction="#onLike" style="-fx-border-color: #158aeb;" text="Like!" textFill="#158aeb">
+                     <font>
+                        <Font name="Roboto Light" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="dislikeBtn" layoutX="56.0" layoutY="100.0" onAction="#onDislike" style="-fx-border-color: #ee0e0e;" text="Dislike!" textFill="#ee0e0e">
+                   <font>
+                       <Font name="Roboto Light" size="13.0" />
+                   </font>
+                  </JFXButton>
+                  <JFXButton fx:id="watchLaterBtn" layoutX="122.0" layoutY="100.0" onAction="#onWatchLater" prefHeight="30.0" prefWidth="106.0" style="-fx-border-color: #000000;" text="Add to Watch Later">
+                   <font>
+                       <Font name="Roboto Light" size="10.0" />
+                   </font>
+                  </JFXButton>
+                  <Separator layoutY="88.0" prefHeight="4.0" prefWidth="245.0" />
+                  <Separator layoutX="1.0" layoutY="162.0" prefHeight="0.0" prefWidth="245.0" />
+                  <JFXTextArea fx:id="commentTxt" layoutX="1.0" layoutY="172.0" prefHeight="101.0" prefWidth="245.0" promptText="Comment..." />
+                  <JFXButton layoutX="61.0" layoutY="284.0" onAction="#onComment" prefHeight="30.0" prefWidth="122.0" style="-fx-border-color: #000000;" text="Add Comment">
+                     <font>
+                        <Font name="Roboto Light" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXListView fx:id="commentList" layoutX="-1.0" layoutY="319.0" prefHeight="389.0" prefWidth="245.0" />
+                  <Label fx:id="likeCount" layoutX="14.0" layoutY="130.0" prefHeight="19.0" prefWidth="32.0" text="likeCount" textFill="#158aeb">
+                     <font>
+                        <Font name="Roboto Condensed Light" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dislikeCount" layoutX="78.0" layoutY="130.0" prefHeight="19.0" prefWidth="33.0" text="dislikeCount" textFill="#ee0e0e">
+                     <font>
+                        <Font name="Roboto Condensed Light" size="13.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="subscribeBtn" layoutX="135.0" layoutY="53.0" onAction="#onSubscribe" style="-fx-border-color: #158aeb;" text="Subscribe!" textFill="#158aeb">
+                     <font>
+                        <Font name="Roboto Light" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="deleteBtn" disable="true" layoutX="168.0" layoutY="17.0" onAction="#onDelete" prefHeight="25.0" prefWidth="59.0" style="-fx-border-color: #ee0e0e;" text="DELETE" textFill="#ee0e0e" visible="false">
+                     <font>
+                        <Font name="Roboto Bold" size="10.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
+      <ProgressIndicator fx:id="loading" layoutX="323.0" layoutY="206.0" prefHeight="84.0" prefWidth="99.0" />
+   </children>
+</AnchorPane>

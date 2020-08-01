@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -23,7 +22,7 @@ public class CommentHistoryListCellController extends JFXListCell<PojoToClientFl
         if(empty||item==null){}
         else{
             if (loader == null) {
-                loader = new FXMLLoader(getClass().getResource("CommentHistoryListCell.fxml"));
+                loader = new FXMLLoader(getClass().getResource("ui/CommentHistoryListCell.fxml"));
                 loader.setController(this);
 
                 try {

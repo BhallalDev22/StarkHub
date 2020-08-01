@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="16.0" />
+      <ImageView fitHeight="99.0" fitWidth="111.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Graphics/video-thumbnail.jpg" />
+         </image>
+      </ImageView>
+      <Separator opacity="0.0" orientation="VERTICAL" prefHeight="152.0" prefWidth="24.0" />
+      <VBox prefHeight="116.0" prefWidth="450.0">
+         <children>
+            <Label fx:id="nameTxt" contentDisplay="CENTER" prefHeight="119.0" prefWidth="661.0" text="Name">
+               <font>
+                  <Font name="Roboto Light" size="23.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Label fx:id="channelNameTxt" contentDisplay="CENTER" prefHeight="79.0" prefWidth="661.0" text="Channel Name" textFill="#8d8d8d">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="50.0" text="Likes :" textFill="#8d8d8d" />
+                  <Label fx:id="likesTxt" prefHeight="28.0" prefWidth="50.0" text="likes" textFill="#8d8d8d" />
+                  <Separator opacity="0.0" orientation="VERTICAL" prefHeight="28.0" prefWidth="19.0" />
+                  <Label prefHeight="28.0" prefWidth="59.0" text="Dislikes :" textFill="#8d8d8d" />
+                  <Label fx:id="dislikesTxt" prefHeight="28.0" prefWidth="50.0" text="dislikes" textFill="#8d8d8d" />
+                  <Separator opacity="0.0" orientation="VERTICAL" prefHeight="61.0" prefWidth="38.0" />
+                  <Label prefHeight="28.0" prefWidth="53.0" text="Views :" textFill="#8d8d8d" />
+                  <Label fx:id="viewsTxt" prefHeight="28.0" prefWidth="50.0" text="views" textFill="#8d8d8d" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

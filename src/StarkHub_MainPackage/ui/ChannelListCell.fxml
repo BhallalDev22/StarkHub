@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="rootPane" prefHeight="113.0" prefWidth="206.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="117.0" prefWidth="206.0">
+         <children>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="83.0" prefWidth="26.0" />
+            <Label fx:id="name" contentDisplay="CENTER" prefHeight="122.0" prefWidth="158.0" text="Name">
+               <font>
+                  <Font name="Roboto Light" size="19.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="206.0">
+         <children>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="50.0" prefWidth="0.0" />
+            <Label fx:id="label" contentDisplay="CENTER" prefHeight="53.0" prefWidth="80.0" text="Subscribers :">
+               <font>
+                  <Font name="Roboto Light" size="11.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Label fx:id="subcount" contentDisplay="CENTER" prefHeight="53.0" prefWidth="114.0" text="subcount">
+               <font>
+                  <Font name="Roboto Light" size="11.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</VBox>

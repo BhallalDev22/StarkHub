@@ -21,7 +21,7 @@ public class CommentListCellController extends JFXListCell<PojoToClientFlattened
         if(empty||item==null){}
         else{
             if (loader == null) {
-                loader = new FXMLLoader(getClass().getResource("CommentListCell.fxml"));
+                loader = new FXMLLoader(getClass().getResource("ui/CommentListCell.fxml"));
                 loader.setController(this);
 
                 try {

@@ -9,6 +9,8 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +23,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PlayerHubController implements Initializable {
@@ -37,6 +40,7 @@ public class PlayerHubController implements Initializable {
     public JFXButton watchLaterBtn;
     public AnchorPane rootPane;
     public JFXButton subscribeBtn;
+    public JFXButton deleteBtn;
 
     private ObservableList<PojoToClientFlattened> comments;
     private FXMLLoader playerLoader;
@@ -56,7 +60,7 @@ public class PlayerHubController implements Initializable {
         output=MainHubController.output;
         userName=MainHubController.userName;
         gson = new GsonBuilder().serializeNulls().create();
-        playerLoader=new FXMLLoader(getClass().getResource("VideoPlayer.fxml"));
+        playerLoader=new FXMLLoader(getClass().getResource("ui/VideoPlayer.fxml"));
         commentList.setCellFactory(commentView -> new CommentListCellController());
         try {
             Parent rt=playerLoader.load();
@@ -74,6 +78,10 @@ public class PlayerHubController implements Initializable {
             cv.setServerIPAddr(InetAddress.getByName(ptc.getIPAddress()));
         } catch (UnknownHostException e) {
             e.printStackTrace();
+        }
+        if(ptc.getUserName().equals(MainHubController.userName)){
+            deleteBtn.setVisible(true);
+            deleteBtn.setDisable(false);
         }
         cv.setVideoFileName(ptc.getVideoPath().get(0));
         nameTxt.setText(ptc.getVideoName().get(0));
@@ -407,6 +415,35 @@ public class PlayerHubController implements Initializable {
             });
             new Thread(task).start();
         }
+    }
+    public void onDelete(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Confirmation");
+        alert.setHeaderText("Deleting "+nameTxt.getText());
+        alert.setContentText("Are you sure you want to delete this video?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            PojoFromClient pfc=new PojoFromClient();
+            pfc.setHeader(23);
+            pfc.setVideoName(nameTxt.getText());
+            pfc.setChannelName(channelNameTxt.getText());
+            Task<String> task=new Task<String>() {
+                @Override
+                protected String call() throws Exception {
+                    output.println(gson.toJson(pfc));
+                    return input.readLine();
+                }
+            };
+            task.setOnSucceeded(workerStateEvent -> {
+                if(task.getValue().equals(LoginSignupController.sf))
+                    snackbar.enqueue(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("This video is now deleted. Reload page to view changes")));
+                 else
+                    snackbar.enqueue(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Some error occurred")));
+                });
+            new Thread(task).start();
+        }
+
     }
 
 }

@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbarLayout;
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -56,7 +55,7 @@ public class NewChannelDialogController implements Initializable {
                 return input.readLine();
             }
         };
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("progress.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui/progress.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         progress = new Stage(StageStyle.UNDECORATED);
         progress.initModality(Modality.WINDOW_MODAL);
