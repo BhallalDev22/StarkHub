@@ -14,7 +14,7 @@
       <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="16.0" />
       <ImageView fitHeight="99.0" fitWidth="111.0" pickOnBounds="true">
          <image>
-            <Image url="@../Graphics/video-thumbnail.jpg" />
+            <Image url="@../../Graphics/video-thumbnail.jpg" />
          </image>
       </ImageView>
       <Separator opacity="0.0" orientation="VERTICAL" prefHeight="152.0" prefWidth="24.0" />

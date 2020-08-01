@@ -15,7 +15,7 @@
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Graphics/play.png" />
+                  <Image url="@../../Graphics/play.png" />
                </image>
             </ImageView>
          </graphic></JFXButton>
@@ -23,7 +23,7 @@
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Graphics/pause.png" />
+                  <Image url="@../../Graphics/pause.png" />
                </image>
             </ImageView>
          </graphic></JFXButton>
@@ -31,7 +31,7 @@
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Graphics/stop.png" />
+                  <Image url="@../../Graphics/stop.png" />
                </image>
             </ImageView>
          </graphic></JFXButton>
