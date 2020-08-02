@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="629.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.MainHubController">
    <children>
-      <JFXListView fx:id="videoList" layoutY="133.0" prefHeight="499.0" prefWidth="889.0" />
+      <AnchorPane layoutY="135.0" prefHeight="496.0" prefWidth="889.0" />
       <Separator layoutY="80.0" prefHeight="2.0" prefWidth="889.0" style="-fx-background-color: #220000;" />
       <Label layoutX="10.0" layoutY="90.0" text="Trending...">
          <font>
