@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="496.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StarkHub_MainPackage.ViewChannelController">
+   <children>
+      <JFXListView fx:id="channelList" prefHeight="441.0" prefWidth="203.0" />
+      <JFXListView fx:id="videoList" layoutX="226.0" prefHeight="496.0" prefWidth="523.0" />
+      <JFXButton fx:id="newChannelBtn" layoutY="439.0" onAction="#onCreateNewChannel" prefHeight="57.0" prefWidth="203.0" style="-fx-border-color: #da6832;" text="+ Create New Channel" textFill="#da6832">
+         <font>
+            <Font name="Roboto Light" size="17.0" />
+         </font>
+      </JFXButton>
+      <Pane fx:id="infoPane" layoutX="749.0" prefHeight="496.0" prefWidth="224.0">
+         <children>
+            <Label fx:id="channelNameTxt" layoutX="47.0" layoutY="63.0" text="channelName" textFill="#d83131">
+               <font>
+                  <Font name="Roboto Regular" size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="creationTimeTxt" layoutX="60.0" layoutY="164.0" text="creationTime" textFill="#d83131">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="videoCountTxt" layoutX="70.0" layoutY="283.0" text="videoCount" textFill="#d83131">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="subCountTxt" layoutX="76.0" layoutY="394.0" text="subCount" textFill="#d83131">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="67.0" layoutY="133.0" text="Created on :" textFill="#da6832">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="46.0" layoutY="248.0" text="Videos uploaded :" textFill="#da6832">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="64.0" layoutY="361.0" text="Subscribers :" textFill="#da6832">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="uploadVideoBtn" layoutX="8.0" layoutY="438.0" onAction="#onUploadVideo" prefHeight="44.0" prefWidth="203.0" style="-fx-border-color: #da6832;" text="+Upload Video" textFill="#da6832">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </JFXButton>
+            <ProgressIndicator fx:id="channelInfoProgress" layoutX="86.0" layoutY="222.0" style="-fx-progress-color: RED;" visible="false" />
+         </children>
+      </Pane>
+      <ProgressIndicator fx:id="videoListProgress" layoutX="461.0" layoutY="218.0" style="-fx-progress-color: RED;" visible="false" />
+   </children>
+</AnchorPane>
