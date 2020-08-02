@@ -4,8 +4,8 @@ Your personal video streaming platform using LAN socket connections and RTSP str
 
 # Team Members: 
 	
-	1. Bhanu Pratap Singh (https://github.com/BhallalDev22)
-	2. Aritra Chatterjee (https://github.com/Arc29)
+	1. Bhanu Pratap Singh : https://github.com/BhallalDev22
+	2. Aritra Chatterjee : https://github.com/Arc29
 
 ## Features
 * Consists of a central always-on server running on port 5000 of server. Server includes socket endpoints for an SQL database used in Starkhub. For more details
