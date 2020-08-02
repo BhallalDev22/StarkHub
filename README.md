@@ -2,6 +2,11 @@
 
 Your personal video streaming platform using LAN socket connections and RTSP streaming through UDP.
 
+# Team Members: 
+	
+	1. Bhanu Pratap Singh (https://github.com/BhallalDev22)
+	2. Aritra Chatterjee (https://github.com/Arc29)
+
 ## Features
 * Consists of a central always-on server running on port 5000 of server. Server includes socket endpoints for an SQL database used in Starkhub. For more details
   check the server's dedicated repo at: https://github.com/BhallalDev22/StarkHub_P2PManager
@@ -12,9 +17,13 @@ Your personal video streaming platform using LAN socket connections and RTSP str
 
 * User can create his/her own __channels__ and upload videos to them
 
-* User can __like__/__dislike__ videos, Add videos to __Watch Later__, Write __comments__ and __subscribe__ to channels
+* User can manage his all channels and videos and can view their statistics
 
-* Users also have access to their __Watch history__ and __Comment History__
+* User can __like__/__dislike__ videos, Add videos to __Watch Later__, Write/Remove __comments__ and __subscribe/unsubscribe__ to channels
+
+* Users also have access to their __Watch history__, __Comment History__ and __Liked Videos__
+
+* User gets __Notification__ when their is any activity in his subscribed channels
 
 * Videos are shared through __RTSP__(Real Time Streaming Protocol) and __RTP__(Real-time Transport Protocol). The server node(serving the video)
   and the client node establish an RTSP socket to communicate control signals, while audio and video frames are sent through RTP (which is implemented using 
