@@ -35,7 +35,7 @@ public class Main extends Application {
             LoginSignupController lsController=loader.getController();
             lsController.setSocket(sock);
             lsController.setTrending(trending);
-            stage.setTitle("StarkHub Login Window");
+            stage.setTitle("StarkHub Login");
             Scene scene = new Scene(root);
             String path = new File("src/resources/css/material.css").getAbsolutePath();
             cssPath="file://"+path;
